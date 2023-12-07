@@ -1,5 +1,6 @@
 import sys
 import logging
+from india_insurance.logger import logging
 
 #function
 def error_message_detail(error,error_detail:sys):
