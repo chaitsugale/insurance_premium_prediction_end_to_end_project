@@ -7,6 +7,9 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from dataclasses import dataclass #defining variable
 
+from india_insurance.components.model_trainer import ModelTrainerConfig
+from india_insurance.components.model_trainer import ModelTrainer
+
 from india_insurance.components.data_transformation import DataTransformation
 
 #any data input is required it will provided by data ingestion config class
@@ -55,6 +58,11 @@ if __name__ == "__main__":
     train_data,test_data = obj.initiate_data_ingestion()
 
     data_transformation = DataTransformation()
-    data_transformation.initiate_data_transformation(train_data,test_data)
+    train_ar,test_ar,_ = data_transformation.initiate_data_transformation(train_data,test_data)
+
+    modeltrainer = ModelTrainer()
+    print(modeltrainer.initiate_model_trainer(train_ar,test_ar))
+
+
 
     
