@@ -50,7 +50,35 @@ class ModelTrainer:
                 "XGBoost": XGBRegressor(),
             }
 
-            model_report:dict =evaluate_models(X_train=X_train,y_train=y_train,X_test =X_test,y_test=y_test,models = models)
+            params = {
+                "Random Forest":{
+                    'n_estimators':[8,16,32,64,128,256],
+                    #'max_features':[1.0,'sqrt','log2']
+                },
+                "GradientBoostingRegressor": {
+                    'n_estimators':[8,16,32,64,128,256],
+                    #'max_features':[1.0,'sqrt','log2'],
+                    'learning_rate':[.1,.01,.05,.001]
+                },
+                "AdaBoostRegressor": {
+                    'n_estimators':[8,16,32,64,128,256],
+                    #'max_features':[1.0,'sqrt','log2'],
+                    'learning_rate':[.1,.01,.05,.001]
+                },
+                "Linear Regression": {},
+                "KNeighboursRegressor": {},
+                "DecisionTreeRegressor" : {'criterion':['squared_error', 'friedman_mse', 'absolute_error', 'poisson'],
+                    'splitter':['best','random'],
+                    'max_features':['sqrt','log2']},
+                "XGBoost": {
+                    'n_estimators':[8,16,32,64,128,256],
+                    #'max_features':[1.0,'sqrt','log2'],
+                    'learning_rate':[.1,.01,.05,.001]
+                },
+            }
+
+            model_report:dict =evaluate_models(X_train=X_train,y_train=y_train,X_test =X_test,y_test=y_test,models = models
+                                               ,params = params)
 
             #to get the bewst model score from dict
 
