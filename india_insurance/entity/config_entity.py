@@ -5,7 +5,7 @@ from datetime import datetime
 
 FILE = 'insurance.csv'
 TRAIN_FILE = 'india_insurance_train.csv'
-TEST_FILE = 'india_inswurance_test.csv'
+TEST_FILE = 'india_insurance_test.csv'
 TRANSFORMER_OBJECT_FILE = 'india_insurance_transformer.pkl'
 TARGET_ENCODER_OBJECT_FILE = 'india_insurance_target_encoder.pkl'
 MODEL_FILE = 'india_insurance_best_model.pkl'
