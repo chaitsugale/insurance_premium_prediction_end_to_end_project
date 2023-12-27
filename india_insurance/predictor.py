@@ -2,7 +2,7 @@ import os
 from india_insurance.entity.config_entity import TRANSFORMER_OBJECT_FILE,MODEL_FILE,TARGET_ENCODER_OBJECT_FILE
 from glob import glob
 from typing import Optional
-from logger import logging
+from logger import IndiaInsuranceException
 
 class ModelResolver:
     def __init__(self,model_registry:str = "saved_models",
