@@ -11,10 +11,10 @@ from india_insurance.config import mongo_client
 from sklearn.metrics import r2_score
 from sklearn.model_selection import GridSearchCV
 
-def get_collection_as_dataframe(database_name:str,connection_name:str)->pd.DataFrame:
+def get_collection_as_dataframe(database_name:str,collection_name:str)->pd.DataFrame:
     try:
-        logging.info(f"Reading the data from database: {database_name} and connections:{connection_name}")
-        df = pd.DataFrame(list(mongo_client[database_name][connection_name].find()))
+        logging.info(f"Reading the data from database: {database_name} and collections:{collection_name}")
+        df = pd.DataFrame(list(mongo_client[database_name][collection_name].find()))
         logging.info(f"Found columns: {df.columns}")
         if "_id" in df.columns:
             logging.info(f"Dropping columns : _id")
