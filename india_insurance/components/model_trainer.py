@@ -3,6 +3,7 @@ import os
 import numpy as np
 import pandas as pd
 from dataclasses import dataclass
+from india_insurance.entity import config_entity,artifact_entity
 
 from india_insurance.exception import IndiaInsuranceException
 from india_insurance.logger import logging
@@ -23,13 +24,20 @@ from sklearn.neighbors import KNeighborsRegressor
 from sklearn.tree import DecisionTreeRegressor
 from xgboost import XGBRegressor
 
-@dataclass
-class ModelTrainerConfig:
-    train_model_file_path = os.path.join('artifacts','india_insurance_model.pkl')
+# @dataclass
+# class ModelTrainerConfig:
+#     train_model_file_path = os.path.join('artifacts','india_insurance_model.pkl')
 
 class ModelTrainer:
-    def __init__(self):
-        self.model_trainer_config = ModelTrainerConfig()
+    def __init__(self,model_trainer_config:config_entity.ModelTrainerConfig,
+                 data_transformation_artifact:config_entity.DataTransformationArtifact):
+        # self.model_trainer_config = ModelTrainerConfig()
+        try:
+            logging.info(f"{'>>'*20} Model trainer {'<<'*20}")
+            self.model_trainer_config = model_trainer_config
+            self.data_transformation_artifact = data_transformation_artifact
+        except Exception as e:
+            raise IndiaInsuranceException(e,sys)
 
     def initiate_model_trainer(self,train_array,test_array):
         try:
@@ -95,20 +103,26 @@ class ModelTrainer:
             best_model = models[best_model_name]
             return best_model
 
-            if best_model_score < 0.75:
-                raise IndiaInsuranceException("No Best Model Found")
-            logging.info(f"Best Model found on both training and testing dataset")
+            if best_model_score < self.model_trainer_config.expected_score:
+                raise IndiaInsuranceException(f"Model is not good as it is not able to give \
+                expected accuracy: {self.model_trainer_config.expected_score}: model actual score: {best_model_score}")
+            # logging.info(f"Best Model found on both training and testing dataset")
 
-            save_object(
-                file_path = self.model_trainer_config.train_model_file_path,
+            if best_model_score>self.model_trainer_config.overfitting_threshold:
+                raise Exception(f"Train and test score diff: {best_score_model} is more than overfitting threshold {self.model_trainer_config.overfitting_threshold}")
+
+            utils.save_object(
+                file_path = self.model_trainer_config.model_path,
                 obj=best_model
             )
 
-            predicted = best_model.predict(X_test)
-            r2_square = r2_score(y_test,predicted)
-            return r2_square
+            # predicted = best_model.predict(X_test)
+            # r2_square = r2_score(y_test,predicted)
+            # return r2_square
 
-        
+            #Preparing artifact
+            model_trainer_artifact = artifact_entity.ModelTraninerArtifact(model_path = model_trainer_config.model_path)
+            return model_trainer_artifact
 
         except Exception as e:
             raise IndiaInsuranceException(e,sys)
