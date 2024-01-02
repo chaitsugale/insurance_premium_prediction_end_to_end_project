@@ -10,7 +10,7 @@ from sklearn.model_selection import train_test_split
 from dataclasses import dataclass #defining variable
 from india_insurance.entity import artifact_entity,config_entity
 
-from india_insurance.components.model_trainer import ModelTrainerConfig
+from india_insurance.components.model_trainer import ModelTrainer
 from india_insurance.components.model_trainer import ModelTrainer
 
 from india_insurance.components.data_transformation import DataTransformation

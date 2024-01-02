@@ -30,7 +30,7 @@ from xgboost import XGBRegressor
 
 class ModelTrainer:
     def __init__(self,model_trainer_config:config_entity.ModelTrainerConfig,
-                 data_transformation_artifact:config_entity.DataTransformationArtifact):
+                 data_transformation_artifact:config_entity.DataTransformationConfig):
         # self.model_trainer_config = ModelTrainerConfig()
         try:
             logging.info(f"{'>>'*20} Model trainer {'<<'*20}")
