@@ -12,18 +12,26 @@ from sklearn.preprocessing import LabelEncoder
 from sklearn.preprocessing import RobustScaler
 from sklearn.preprocessing import StandardScaler
 from india_insurance.logger import logging
+from india_insurance import utils
 from india_insurance.exception import IndiaInsuranceException
 from india_insurance.utils import save_object
 from india_insurance.config import TARGET_COLUMN
+from india_insurance.entity import artifact_entity,config_entity
 
 
-@dataclass
-class DataTransformationConfig:
-    preprocessor_obj_file_path = os.path.join('artifacts','india_insurance_preprocessor.pkl')
+# @dataclass
+# class DataTransformationConfig:
+#     preprocessor_obj_file_path = os.path.join('artifacts','india_insurance_preprocessor.pkl')
 
 class DataTransformation:
-    def __init__(self):
-        self.data_transformation_config=DataTransformationConfig()
+    def __init__(self,data_transformation_config:config_entity.DataTransformationConfig,
+                 data_ingestion_artifact:artifact_entity.DataIngestionArtifact):
+        try:
+            logging.info(f"{'>>'*20} Data Transformation {'<<'*20}")
+            self.data_transformation_config = data_transformation_config
+            self.data_ingestion_artifact = data_ingestion_artifact
+        except Exception as e:
+            raise IndiaInsuranceException(e,sys)
 
     @classmethod
     def get_data_transformer_object(self)->Pipeline:
@@ -43,10 +51,10 @@ class DataTransformation:
             raise IndiaInsuranceException(e,sys)
         
         
-    def initiate_data_transformation(self,train_path,test_path):
+    def initiate_data_transformation(self,)->artifact_entity.DataTransformationArtifact:
         try:
-            train_df = pd.read_csv(train_path)
-            test_df = pd.read_csv(test_path)
+            train_df = pd.read_csv(self.data_ingestion_artifact.train_data_path)
+            test_df = pd.read_csv(self.data_ingestion_artifact.test_data_path)
 
             logging.info("Read train and test data completed")
 
@@ -102,23 +110,45 @@ class DataTransformation:
             '''
 
             train_ar = np.c_[
-                input_feature_train_arr ,np.array(target_feature_train_df)
+                input_feature_train_arr ,np.array(target_feature_train_arr)
 
             ]
 
             test_ar = np.c_[
-                input_feature_test_arr ,np.array(target_feature_test_df)
+                input_feature_test_arr ,np.array(target_feature_test_arr)
                 
             ]
 
+            #saving numpy array
+
+            #for train
+            utils.save_numpy_array_data(file_path=self.data_transformation_config.transformed_train_path,array=train_ar)
+            
+            #for test
+            utils.save_numpy_array_data(file_path=self.data_transformation_config.transformed_test_path,array=test_ar)
+
             logging.info(f"saved preprocessing obj")
 
-            save_object(file_path = self.data_transformation_config.preprocessor_obj_file_path,
+            save_object(file_path = self.data_transformation_config.transform_object_path,
                      obj = transformation_pipeline)
+            
+            save_object(file_path = self.data_transformation_config.target_encoder_path,
+                     obj = label)
 
-            return(
-                train_ar,test_ar,self.data_transformation_config.preprocessor_obj_file_path,
+            # return(
+            #     train_ar,test_ar,self.data_transformation_config.preprocessor_obj_file_path,
+            # )
+
+            data_transformation_artifact = artifact_entity.DataTransformationArtifact(
+                transform_object_path = self.data_transformation_config.transform_object_path,
+                transformed_train_path= self.data_transformation_config.transformed_train_path,
+                transformed_test_path= self.data_transformation_config.transformed_test_path,
+                target_encoded_path=self.data_transformation_config.target_encoder_path
+
             )
+
+            logging.info(f"Data transformation object {data_transformation_artifact}")
+            return data_transformation_artifact
         
         except Exception as e:
             raise IndiaInsuranceException(e,sys)
