@@ -20,8 +20,8 @@ class TrainingPipelineConfig:
 class DataIngestionConfig:
     def __init__(self,training_pipeline_config:TrainingPipelineConfig):
         try :
-            self.database_name = "insurance"
-            self.collection_name = "premium"
+            self.database_name="india_insurance"
+            self.collection_name="premium"
             self.data_ingestion_directory = os.path.join(training_pipeline_config.artifact_directory,"data_ingestion")
             self.feature_store_file_path = os.path.join(self.data_ingestion_directory,"feature_store",FILE)
             self.train_data_path = os.path.join(self.data_ingestion_directory,"dataset",TRAIN_FILE)

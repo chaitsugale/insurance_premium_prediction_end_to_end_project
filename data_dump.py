@@ -3,9 +3,9 @@ import pandas as pd
 import json
 from india_insurance.config import mongo_client
 
-DATABASE_NAME = "india_insurance"
+DATABASE_NAME = "india_insurance" 
 COLLECTION_NAME = "premium"
-DATA_FILE_PATH = "/notebook/insurance-premium-prediction/insurance.csv"
+DATA_FILE_PATH = "C:/Users/admin/insurance_premium_prediction_end_to_end_project/notebook/insurance-premium-prediction/insurance.csv"
 
 if __name__ == "__main__":
     df = pd.read_csv(DATA_FILE_PATH)

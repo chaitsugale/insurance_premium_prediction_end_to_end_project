@@ -6,8 +6,8 @@ import os
 from dataclasses import dataclass
 
 class EnvironmentVariable:
-    mongo_db_url:str = os.getenv("MONGO_DB_URL")
-    #mongo_db_url = 'mongodb://localhost:27017'
+    #mongo_db_url:str = os.getenv("MONGO_DB_URL")
+    mongo_db_url = 'mongodb://localhost:27017'
     
 
 env_var = EnvironmentVariable()
