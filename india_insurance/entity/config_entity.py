@@ -24,8 +24,8 @@ class DataIngestionConfig:
             self.collection_name = "premium"
             self.data_ingestion_directory = os.path.join(training_pipeline_config.artifact_directory,"data_ingestion")
             self.feature_store_file_path = os.path.join(self.data_ingestion_directory,"feature_store",FILE)
-            self.train_file_path = os.path.join(self.data_ingestion_directory,"dataset",TRAIN_FILE)
-            self.test_file_path = os.path.join(self.data_ingestion_directory,"dataset",TEST_FILE)
+            self.train_data_path = os.path.join(self.data_ingestion_directory,"dataset",TRAIN_FILE)
+            self.test_data_path = os.path.join(self.data_ingestion_directory,"dataset",TEST_FILE)
             self.test_size = 0.25
         except Exception as e:
             raise IndiaInsuranceException(e,sys)

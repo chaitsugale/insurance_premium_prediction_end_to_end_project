@@ -11,7 +11,6 @@ from dataclasses import dataclass #defining variable
 from india_insurance.entity import artifact_entity,config_entity
 
 from india_insurance.components.model_trainer import ModelTrainer
-from india_insurance.components.model_trainer import ModelTrainer
 
 from india_insurance.components.data_transformation import DataTransformation
 
@@ -71,8 +70,8 @@ class DataIngestion:
 
             data_ingestion_artifact = artifact_entity.DataIngestionArtifact(
                 feature_store_file_path=self.data_ingestion_config.feature_store_file_path,
-                train_dir_path = self.data_ingestion_config.train_data_path,
-                test_dir_path = self.data_ingestion_config.test_data_path
+                train_data_path = self.data_ingestion_config.train_data_path,
+                test_data_path = self.data_ingestion_config.test_data_path
             )
 
             logging.info(f"Data ingestion artifact: {data_ingestion_artifact}")
