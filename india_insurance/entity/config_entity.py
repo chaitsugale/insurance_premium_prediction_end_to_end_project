@@ -3,7 +3,7 @@ from india_insurance.exception import IndiaInsuranceException
 from india_insurance.logger import logging
 from datetime import datetime
 
-FILE = 'insurance.csv'
+FILE = 'india_insurance.csv'
 TRAIN_FILE = 'india_insurance_train.csv'
 TEST_FILE = 'india_insurance_test.csv'
 TRANSFORMER_OBJECT_FILE = 'india_insurance_transformer.pkl'

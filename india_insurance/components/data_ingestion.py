@@ -58,6 +58,9 @@ class DataIngestion:
             logging.info("Train test Split initiated")
             train_set,test_set = train_test_split(df,test_size = self.data_ingestion_config.test_size,random_state= 42)
 
+            dataset_dir = os.path.dirname(self.data_ingestion_config.train_data_path)
+            os.makedirs(dataset_dir,exist_ok=True)
+
             train_set.to_csv(path_or_buf=self.data_ingestion_config.train_data_path,index = False,header = True)
             test_set.to_csv(path_or_buf=self.data_ingestion_config.test_data_path,index = False,header = True)
 

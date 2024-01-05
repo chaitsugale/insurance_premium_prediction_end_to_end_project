@@ -10,6 +10,7 @@ from india_insurance.logger import logging
 from india_insurance.config import mongo_client
 from sklearn.metrics import r2_score
 from sklearn.model_selection import GridSearchCV
+import yaml
 
 def get_collection_as_dataframe(database_name:str,collection_name:str)->pd.DataFrame:
     try:
@@ -102,3 +103,5 @@ def evaluate_models(X_train,y_train,X_test,y_test,models,params):
     except Exception as e:
         raise IndiaInsuranceException(e,sys)
 
+def write_yaml_file(self):
+    pass
