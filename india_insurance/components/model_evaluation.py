@@ -13,7 +13,7 @@ class ModelEvaluation:
                  model_eval_config:config_entity.ModelEvaluationConfig,
                  data_ingestion_artifact:artifact_entity.DataIngestionArtifact,
                  data_transformation_artifact:artifact_entity.DataTransformationArtifact,
-                 model_trainer_artifact:artifact_entity.ModelTraninerArtifact):
+                 model_trainer_artifact:artifact_entity.ModelTrainerArtifact):
         try:
             logging.info(f"{'>>'*20}  Model Evaluation {'<<'*20}")
             self.model_eval_config = model_eval_config
@@ -49,7 +49,7 @@ class ModelEvaluation:
             current_model = load_object(file_path = self.model_trainer_artifact.model_path)
             current_target_enoder = load_object(file_path = self.data_transformation_artifact.target_encoded_path)
 
-            test_df = pd.read_csv(self.data_ingestion_artifact.test_file_path)
+            test_df = pd.read_csv(self.data_ingestion_artifact.test_data_path)
             target_df = test_df[TARGET_COLUMN]
             y_true = target_df
 

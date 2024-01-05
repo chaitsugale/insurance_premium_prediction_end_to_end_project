@@ -46,10 +46,10 @@ class DataValidationConfig:
 class DataTransformationConfig:
     def __init__(self,training_pipeline_config:TrainingPipelineConfig):
         self.data_transformation_directory = os.path.join(training_pipeline_config.artifact_directory,"data_transformation")
-        self.transform_object_path = os.getcwd(self.data_transformation_directory,"transformer",TRANSFORMER_OBJECT_FILE)
-        self.transformed_train_path = os.getcwd(self.data_transformation_directory,"transformed",TRAIN_FILE.replace("csv","npz"))
-        self.transformed_test_path = os.getcwd(self.data_transformation_directory,"transformed",TEST_FILE.replace("csv","npz"))
-        self.target_encoder_path = os.getcwd(self.data_transformation_directory,"target_encoder",TARGET_ENCODER_OBJECT_FILE)
+        self.transform_object_path = os.path.join(self.data_transformation_directory,"transformer",TRANSFORMER_OBJECT_FILE)
+        self.transformed_train_path = os.path.join(self.data_transformation_directory,"transformed",TRAIN_FILE.replace("csv","npz"))
+        self.transformed_test_path = os.path.join(self.data_transformation_directory,"transformed",TEST_FILE.replace("csv","npz"))
+        self.target_encoder_path = os.path.join(self.data_transformation_directory,"target_encoder",TARGET_ENCODER_OBJECT_FILE)
 
 class ModelTrainerConfig:
     def __init__(self,training_pipeline_config:TrainingPipelineConfig):
@@ -66,6 +66,7 @@ class ModelPusherConfig:
         self.pusher_model_directory = os.path.join(self.model_pusher_directory,"saved_models")
         self.pusher_model_path = os.path.join(self.pusher_model_directory,MODEL_FILE)
         self.pusher_transformer_path = os.path.join(self.pusher_model_directory,TRANSFORMER_OBJECT_FILE)
+        self.pusher_target_encoder_path = os.path.join(self.pusher_model_directory,TARGET_ENCODER_OBJECT_FILE)
 
 class ModelEvaluationConfig:
     def __init__(self,training_pipeline_config:TrainingPipelineConfig):

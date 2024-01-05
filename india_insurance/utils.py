@@ -103,5 +103,11 @@ def evaluate_models(X_train,y_train,X_test,y_test,models,params):
     except Exception as e:
         raise IndiaInsuranceException(e,sys)
 
-def write_yaml_file(self):
-    pass
+def write_yaml_file(file_path,data:dict):
+    try:
+        file_dir = os.path.dirname(file_path)
+        os.makedirs(file_dir,exist_ok=True)
+        with open(file_path,"w") as file_writer:
+            yaml.dump(data,file_writer)
+    except Exception as e:
+        raise IndiaInsuranceException(e, sys)

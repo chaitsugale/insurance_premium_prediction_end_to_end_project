@@ -4,12 +4,12 @@ from india_insurance.exception import IndiaInsuranceException
 import os,sys
 from india_insurance.utils import load_object,save_object
 from india_insurance.logger import logging
-from india_insurance.entity.artifact_entity import DataTransformationArtifact,ModelTraninerArtifact,ModelPusherArtifact
+from india_insurance.entity.artifact_entity import DataTransformationArtifact,ModelTrainerArtifact,ModelPusherArtifact
 
 class ModelPusher:
     def __init__(self,model_pusher_config:ModelPusherConfig,
                  data_transformation_artifact:DataTransformationArtifact,
-                 model_trainer_artifact:ModelTraninerArtifact):
+                 model_trainer_artifact:ModelTrainerArtifact):
         try:
             logging.info(f"{'>>'*20} Data Transformation {'<<'*20}")
             self.model_pusher_config = model_pusher_config
@@ -24,7 +24,7 @@ class ModelPusher:
             #loading object
             logging.info(f"Loading transformer model and target encoder")
             transformer = load_object(file_path=self.data_transformation_artifact.transform_object_path)
-            model = load_object(file_path = self.model_trainer_artifact.model_path)
+            model = load_object(file_path=self.model_trainer_artifact.model_path)
             target_encoder = load_object(file_path = self.data_transformation_artifact.target_encoded_path)
 
             #model pushing directory
