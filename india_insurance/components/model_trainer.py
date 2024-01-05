@@ -30,9 +30,18 @@ class ModelTrainer:
 
     def train_model(self,x,y):
         try:
-            gb_r = GradientBoostingRegressor()
-            gb_r.fit(x,y)
-            return gb_r
+            param_grid = {
+                    'n_estimators': [50, 100, 150],
+                    'max_depth': [3, 5, 7],
+                    'learning_rate': [0.01, 0.1, 0.2]
+            }
+            xgb_r = xg.XGBRegressor()
+            grid_search = GridSearchCV(xgb_r,param_grid,cv = 5,scoring = 'neg_mean_absolute_error')
+
+            grid_search.fit(x,y)
+            best_param = grid_search.best_params_
+            best_model = grid_search.best_estimator_
+            return best_model
         except Exception as e:
             raise IndiaInsuranceException(e, sys)
 
