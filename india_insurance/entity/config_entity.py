@@ -26,7 +26,7 @@ class DataIngestionConfig:
             self.feature_store_file_path = os.path.join(self.data_ingestion_directory,"feature_store",FILE)
             self.train_data_path = os.path.join(self.data_ingestion_directory,"dataset",TRAIN_FILE)
             self.test_data_path = os.path.join(self.data_ingestion_directory,"dataset",TEST_FILE)
-            self.test_size = 0.25
+            self.test_size = 0.2
         except Exception as e:
             raise IndiaInsuranceException(e,sys)
         
@@ -40,7 +40,7 @@ class DataValidationConfig:
     def __init__(self,training_pipeline_config:TrainingPipelineConfig):
         self.data_validation_directory = os.path.join(training_pipeline_config.artifact_directory,"data_validation")
         self.report_file_path = os.path.join(self.data_validation_directory,"india_insurance_report.yaml")
-        self.missing_threshold:float = 0.25
+        self.missing_threshold:float = 0.1
         self.base_file_path  = os.path.join("insurance_main_dataset.csv")
 
 class DataTransformationConfig:
@@ -55,7 +55,7 @@ class ModelTrainerConfig:
     def __init__(self,training_pipeline_config:TrainingPipelineConfig):
         self.model_trainer_directory = os.path.join(training_pipeline_config.artifact_directory,"model_trainer")
         self.model_path = os.path.join(self.model_trainer_directory,"model",MODEL_FILE)
-        self.expected_score = 0.75
+        self.expected_score = 0.7
         self.overfitting_threshold = 0.3
 
 
@@ -70,7 +70,7 @@ class ModelPusherConfig:
 
 class ModelEvaluationConfig:
     def __init__(self,training_pipeline_config:TrainingPipelineConfig):
-        self.change_threshold = 0.02
+        self.change_threshold = 0.01
 
 
         

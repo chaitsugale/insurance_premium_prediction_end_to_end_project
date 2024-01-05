@@ -56,7 +56,7 @@ class DataIngestion:
 
 
             logging.info("Train test Split initiated")
-            train_set,test_set = train_test_split(df,test_size = self.data_ingestion_config.test_size,random_state= 42)
+            train_set,test_set = train_test_split(df,test_size = self.data_ingestion_config.test_size,random_state=42)
 
             dataset_dir = os.path.dirname(self.data_ingestion_config.train_data_path)
             os.makedirs(dataset_dir,exist_ok=True)

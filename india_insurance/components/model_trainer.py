@@ -30,9 +30,9 @@ class ModelTrainer:
 
     def train_model(self,x,y):
         try:
-            xgb_r = xg.XGBRegressor()
-            xgb_r.fit(x,y)
-            return xgb_r
+            gb_r = GradientBoostingRegressor()
+            gb_r.fit(x,y)
+            return gb_r
         except Exception as e:
             raise IndiaInsuranceException(e, sys)
 
@@ -48,12 +48,12 @@ class ModelTrainer:
     def initiate_model_trainer(self,)->artifact_entity.ModelTrainerArtifact:
         try:
             logging.info(f"Loading train and test array.")
-            train_arr = utils.load_numpy_array_data(file_path=self.data_transformation_artifact.transformed_train_path)
-            test_arr = utils.load_numpy_array_data(file_path=self.data_transformation_artifact.transformed_test_path)
+            train_array = utils.load_numpy_array_data(file_path=self.data_transformation_artifact.transformed_train_path)
+            test_array = utils.load_numpy_array_data(file_path=self.data_transformation_artifact.transformed_test_path)
 
             logging.info(f"Splitting input and target feature from both train and test arr.")
-            x_train,y_train = train_arr[:,:-1],train_arr[:,-1]
-            x_test,y_test = test_arr[:,:-1],test_arr[:,-1]
+            x_train,y_train = train_array[:,:-1],train_array[:,-1]
+            x_test,y_test = test_array[:,:-1],test_array[:,-1]
 
             logging.info(f"Train the model")
             model = self.train_model(x=x_train,y=y_train)
