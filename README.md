@@ -1,3 +1,3 @@
 ## Insurance Premium Prediction
 
-India Insurance
+India Insurance Premium Prediction
