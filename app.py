@@ -53,5 +53,5 @@ df =india_insurance_transformer.transform(df)
 
 y_pred = india_insurance_model.predict(df)
 
-if st.button("Please ckick for the Insurance Premium Price"):
+if st.button("Please click for the Insurance Premium Price"):
     st.header(f" Your Insurance Premium Price will be : :green[{round(y_pred[0],2)}] INR")
