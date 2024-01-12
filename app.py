@@ -12,7 +12,7 @@ india_insurance_model = pickle.load(open('india_insurance_best_model.pkl','rb'))
 india_insurance_target_encoder = pickle.load(open('india_insurance_target_encoder.pkl','rb'))
 india_insurance_transformer = pickle.load(open('india_insurance_transformer.pkl','rb'))
 
-st.title("	:moneybag: :blue[India Insurance Premium Predictor] :moneybag:")
+st.title("	:moneybag: :blue[Bharat Insurance Premium Predictor] :moneybag:")
 age = st.text_input('Enter Age',18)
 age = int(age)
 
