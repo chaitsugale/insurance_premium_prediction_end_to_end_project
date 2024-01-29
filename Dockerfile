@@ -1,17 +1,18 @@
 #step 1 creating base image [linux image]
 FROM python:3.11.3
 
-#step 2 : copy -->from my local reportostpry the file should put in the base image--> app floder will get created in container
-COPY . /app
+EXPOSE 8501
 
-#step 3 : working directory
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    software-properties-common \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
 WORKDIR /app
 
-#step 4 : run --> installation of libraries
+COPY . /app
 
-RUN apt update -y && apt install awscli -y
+RUN pip3 install -r requirements.txt
 
-RUN apt-get update && apt-get install ffmpeg libsm6 libxext6 unzip -y && pip install -r requirements.txt
-
-#step 5 : cmd command --> running the command
-CMD streamlit run app.py
+ENTRYPOINT ["streamlit", "run", "app.py", "--server.port=8501", "--server.address=0.0.0.0"]
